@@ -29,14 +29,14 @@ namespace finalAssignment__APWDN.Controllers
             }
             return Ok(postRepo.Get(id));
         }
-        [Route("")]
+        [Route(""),BasicAuthentication]
         public IHttpActionResult Post(Post post)
         {
             postRepo.Insert(post);
             string uri = Url.Link("GetPostById", new { id = post.Id });
             return Created(uri, post);
         }
-        [Route("{id}")]
+        [Route("{id}"),BasicAuthentication]
         public IHttpActionResult Put([FromUri]int id, [FromBody]Post post)
         {
             if (postRepo.Get(id) == null)
@@ -47,7 +47,7 @@ namespace finalAssignment__APWDN.Controllers
             postRepo.Update(post);
             return Ok(post);
         }
-        [Route("{id}")]
+        [Route("{id}"),BasicAuthentication]
         public IHttpActionResult Delete(int id)
         {
             if (postRepo.Get(id) == null)

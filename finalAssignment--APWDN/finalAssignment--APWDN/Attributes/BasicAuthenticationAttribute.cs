@@ -1,4 +1,5 @@
-﻿using System;
+﻿using finalAssignment__APWDN.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,6 +15,7 @@ namespace finalAssignment__APWDN.Attributes
 {
     public class BasicAuthenticationAttribute:AuthorizationFilterAttribute
     {
+        UserRepository userRepo = new UserRepository();
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             base.OnAuthorization(actionContext);
@@ -24,12 +26,10 @@ namespace finalAssignment__APWDN.Attributes
             else
             {
                 string encodedString = actionContext.Request.Headers.Authorization.Parameter;
-                string decodedString = Encoding.UTF8.GetString(Convert.FromBase64String(encodedString));
-                string[] splittedText = decodedString.Split(new char[] { ':' });
-                string userName = splittedText[0];
-                string password = splittedText[1];
 
-                if(userName == "nur" && password == "123")
+                string userName = userRepo.Validate(encodedString);
+
+                if (userName != null)
                 {
                     Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(userName),null);
                 }
