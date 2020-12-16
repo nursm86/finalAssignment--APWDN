@@ -44,7 +44,8 @@ namespace finalAssignment__APWDN.Controllers
         [Route("{id}"),BasicAuthentication]
         public IHttpActionResult Put([FromUri]int id, [FromBody]Post post)
         {
-            if (postRepo.Get(id) == null)
+            Post p = postRepo.Get(id);
+            if (p == null)
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
@@ -111,7 +112,7 @@ namespace finalAssignment__APWDN.Controllers
             }
             com.PostId = id;
             com.CommentId = cid;
-            comRepo.UpdateComment(cid,com);
+            comRepo.Update(com);
             return Ok(comRepo.Get(com.CommentId));
         }
 

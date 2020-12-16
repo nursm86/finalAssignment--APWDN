@@ -26,5 +26,18 @@ namespace finalAssignment__APWDN.Repositories
                 return user.userName;
             }
         }
+
+        public bool Validate(User u)
+        {
+            User user = this.GetAll().Where<User>(x => x.userName == u.userName && x.password == u.password).FirstOrDefault();
+            if (user == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

@@ -9,6 +9,6 @@ namespace finalAssignment__APWDN.Repositories
 {
     public class PostRepository : Repository<Post>
     {
-        
+
     }
 }
