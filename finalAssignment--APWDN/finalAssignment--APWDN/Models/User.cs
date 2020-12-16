@@ -18,17 +18,20 @@ namespace finalAssignment__APWDN.Models
         public User()
         {
             this.Comments = new HashSet<Comment>();
+            this.Likes = new HashSet<Like>();
             this.Posts = new HashSet<Post>();
         }
     
         public int Id { get; set; }
         public string userName { get; set; }
         public string password { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Posts { get; set; }
+        public ICollection<Like> Likes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public ICollection<Post> Posts { get; set; }
     }
 }

@@ -42,3 +42,7 @@ I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWD
 I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\obj\Debug\finalAssignment--APWDN.csproj.CopyComplete
 I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\obj\Debug\finalAssignment--APWDN.dll
 I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\obj\Debug\finalAssignment--APWDN.pdb
+I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\EntityFramework.dll
+I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\EntityFramework.SqlServer.dll
+I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\EntityFramework.xml
+I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\EntityFramework.SqlServer.xml

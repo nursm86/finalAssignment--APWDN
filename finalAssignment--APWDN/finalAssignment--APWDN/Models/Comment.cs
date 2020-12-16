@@ -19,7 +19,7 @@ namespace finalAssignment__APWDN.Models
         public int PostId { get; set; }
         public string Comment1 { get; set; }
     
-        public virtual Post Post { get; set; }
-        public virtual User User { get; set; }
+        public Post Post { get; set; }
+        public User User { get; set; }
     }
 }

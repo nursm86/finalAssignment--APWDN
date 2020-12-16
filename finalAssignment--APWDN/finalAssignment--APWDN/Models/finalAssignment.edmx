@@ -14,6 +14,14 @@
           <Property Name="PostId" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Likes">
+          <Key>
+            <PropertyRef Name="likeId" />
+          </Key>
+          <Property Name="likeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="postId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Posts">
           <Key>
             <PropertyRef Name="Id" />
@@ -21,7 +29,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="PostDescription" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PostDate" Type="datetime" Nullable="false" />
+          <Property Name="PostDate" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
@@ -31,7 +39,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="password" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Name" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comments_Posts">
           <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
@@ -57,6 +65,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Likes_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="postId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Posts_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
@@ -71,6 +103,7 @@
         </Association>
         <EntityContainer Name="finalAssiignmentDBModelStoreContainer">
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
@@ -80,6 +113,14 @@
           <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Posts" Association="Self.FK_Likes_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Users" Association="Self.FK_Likes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Likes" EntitySet="Likes" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
             <End Role="Users" EntitySet="Users" />
@@ -102,6 +143,16 @@
           <NavigationProperty Name="Post" Relationship="Self.FK_Comments_Posts" FromRole="Comments" ToRole="Posts" />
           <NavigationProperty Name="User" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
         </EntityType>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="likeId" />
+          </Key>
+          <Property Name="likeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="postId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Likes_Posts" FromRole="Likes" ToRole="Posts" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Likes_Users" FromRole="Likes" ToRole="Users" />
+        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="Id" />
@@ -109,9 +160,10 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="PostDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PostDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Posts" FromRole="Posts" ToRole="Comments" />
+          <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Posts" FromRole="Posts" ToRole="Likes" />
           <NavigationProperty Name="User" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
@@ -121,8 +173,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Users" FromRole="Users" ToRole="Likes" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Users" FromRole="Users" ToRole="Posts" />
         </EntityType>
         <Association Name="FK_Comments_Posts">
@@ -149,6 +202,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Likes_Posts">
+          <End Role="Posts" Type="Self.Post" Multiplicity="1" />
+          <End Role="Likes" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="postId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Likes" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Posts_Users">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
           <End Role="Posts" Type="Self.Post" Multiplicity="*" />
@@ -163,6 +240,7 @@
         </Association>
         <EntityContainer Name="finalAssiignmentDB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Likes" EntityType="Self.Like" />
           <EntitySet Name="Posts" EntityType="Self.Post" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
@@ -172,6 +250,14 @@
           <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Posts" Association="Self.FK_Likes_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Users" Association="Self.FK_Likes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Likes" EntitySet="Likes" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
             <End Role="Users" EntitySet="Users" />
@@ -191,6 +277,15 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
                 <ScalarProperty Name="Comment1" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Likes">
+            <EntityTypeMapping TypeName="finalAssiignmentDBModel.Like">
+              <MappingFragment StoreEntitySet="Likes">
+                <ScalarProperty Name="likeId" ColumnName="likeId" />
+                <ScalarProperty Name="postId" ColumnName="postId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

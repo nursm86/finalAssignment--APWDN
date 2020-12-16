@@ -9,25 +9,30 @@
 
 namespace finalAssignment__APWDN.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using System.Xml.Serialization;
+
     public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Post()
         {
             this.Comments = new HashSet<Comment>();
+            this.Likes = new HashSet<Like>();
         }
     
         public int Id { get; set; }
         public int UserId { get; set; }
         public string PostDescription { get; set; }
-        public System.DateTime PostDate { get; set; }
+        public string PostDate { get; set; }
         public string Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual User User { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public ICollection<Like> Likes { get; set; }
+        public User User { get; set; }
     }
 }
