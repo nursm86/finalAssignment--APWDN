@@ -14,11 +14,14 @@ namespace finalAssignment__APWDN.Controllers
     public class PostController : ApiController
     {
         PostRepository postRepo = new PostRepository();
+        CommentRepository comRepo = new CommentRepository();
+
         [Route(""),BasicAuthentication]
         public IHttpActionResult Get()
         {
             return Ok(postRepo.GetAll());
         }
+
         [Route("{id}",Name ="GetPostById"),BasicAuthentication]
         public IHttpActionResult Get(int id)
         {
@@ -27,15 +30,17 @@ namespace finalAssignment__APWDN.Controllers
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-            return Ok(postRepo.Get(id));
+            return Ok(post);
         }
+
         [Route(""),BasicAuthentication]
         public IHttpActionResult Post(Post post)
         {
             postRepo.Insert(post);
-            string uri = Url.Link("GetPostById", new { id = post.Id });
+            string uri = Url.Link("GetPostById", new { id = post.PostId });
             return Created(uri, post);
         }
+
         [Route("{id}"),BasicAuthentication]
         public IHttpActionResult Put([FromUri]int id, [FromBody]Post post)
         {
@@ -43,10 +48,11 @@ namespace finalAssignment__APWDN.Controllers
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-            post.Id = id;
+            post.PostId = id;
             postRepo.Update(post);
             return Ok(post);
         }
+
         [Route("{id}"),BasicAuthentication]
         public IHttpActionResult Delete(int id)
         {
@@ -55,6 +61,69 @@ namespace finalAssignment__APWDN.Controllers
                 return StatusCode(HttpStatusCode.NoContent);
             }
             postRepo.Delete(id);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [Route("{id}/comments"), BasicAuthentication]
+        public IHttpActionResult GetComments(int id)
+        {
+            List<Comment> comments = comRepo.GetAll().Where<Comment>(x => x.PostId == id).ToList();
+            if(comments.Count<=0)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                return Ok(comments);
+            }
+        }
+
+        [Route("{id}/comments/{cid}", Name = "GetCommentById"), BasicAuthentication]
+        public IHttpActionResult GetComment(int id,int cid)
+        {
+            Comment com = comRepo.GetAll().Where<Comment>(x=>x.CommentId == cid && x.PostId == id).FirstOrDefault();
+            if (com == null)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                return Ok(com);
+            }
+        }
+
+        [Route("{id}/comments"), BasicAuthentication]
+        public IHttpActionResult PostComment(int id,Comment com)
+        {
+            com.PostId = id;
+            comRepo.Insert(com);
+            string uri = Url.Link("GetCommentById", new { id = com.PostId ,cid = com.CommentId});
+            return Created(uri, com);
+        }
+
+        [Route("{id}/comments/{cid}"), BasicAuthentication]
+        public IHttpActionResult Put([FromUri] int id,[FromUri] int cid, [FromBody] Comment com)
+        {
+            Comment comment = comRepo.GetAll().Where<Comment>(x => x.CommentId == cid && x.PostId == id).FirstOrDefault();
+            if (comment == null)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            com.PostId = id;
+            com.CommentId = cid;
+            comRepo.UpdateComment(cid,com);
+            return Ok(comRepo.Get(com.CommentId));
+        }
+
+        [Route("{id}/comments/{cid}"), BasicAuthentication]
+        public IHttpActionResult DeleteComment(int id,int cid)
+        {
+            Comment comment = comRepo.GetAll().Where<Comment>(x => x.CommentId == cid && x.PostId == id).FirstOrDefault();
+            if (comment == null)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            comRepo.Delete(cid);
             return StatusCode(HttpStatusCode.NoContent);
         }
     }

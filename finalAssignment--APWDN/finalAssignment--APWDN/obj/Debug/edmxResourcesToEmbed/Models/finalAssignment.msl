@@ -4,7 +4,7 @@
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="finalAssiignmentDBModel.Comment">
         <MappingFragment StoreEntitySet="Comments">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="PostId" ColumnName="PostId" />
           <ScalarProperty Name="Comment1" ColumnName="Comment" />
@@ -23,7 +23,7 @@
     <EntitySetMapping Name="Posts">
       <EntityTypeMapping TypeName="finalAssiignmentDBModel.Post">
         <MappingFragment StoreEntitySet="Posts">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="PostDescription" ColumnName="PostDescription" />
           <ScalarProperty Name="PostDate" ColumnName="PostDate" />
@@ -34,7 +34,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="finalAssiignmentDBModel.User">
         <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="userName" ColumnName="userName" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="Name" ColumnName="Name" />

@@ -9,11 +9,9 @@
 
 namespace finalAssignment__APWDN.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    using System.Xml.Serialization;
-
+    
     public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,7 +21,7 @@ namespace finalAssignment__APWDN.Models
             this.Likes = new HashSet<Like>();
         }
     
-        public int Id { get; set; }
+        public int PostId { get; set; }
         public int UserId { get; set; }
         public string PostDescription { get; set; }
         public string PostDate { get; set; }

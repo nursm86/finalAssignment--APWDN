@@ -2,9 +2,9 @@
 <Schema Namespace="finalAssiignmentDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Comment">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="CommentId" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <Property Name="PostId" Type="Int32" Nullable="false" />
     <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -23,22 +23,22 @@
   </EntityType>
   <EntityType Name="Post">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="PostId" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <Property Name="PostDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="PostDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Posts" FromRole="Posts" ToRole="Comments" />
     <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Posts" FromRole="Posts" ToRole="Likes" />
     <NavigationProperty Name="User" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
   </EntityType>
   <EntityType Name="User">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="userName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -51,7 +51,7 @@
     <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Posts">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="PostId" />
       </Principal>
       <Dependent Role="Comments">
         <PropertyRef Name="PostId" />
@@ -63,7 +63,7 @@
     <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="Comments">
         <PropertyRef Name="UserId" />
@@ -75,7 +75,7 @@
     <End Role="Likes" Type="Self.Like" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Posts">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="PostId" />
       </Principal>
       <Dependent Role="Likes">
         <PropertyRef Name="postId" />
@@ -87,7 +87,7 @@
     <End Role="Likes" Type="Self.Like" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="Likes">
         <PropertyRef Name="userId" />
@@ -99,7 +99,7 @@
     <End Role="Posts" Type="Self.Post" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="Posts">
         <PropertyRef Name="UserId" />

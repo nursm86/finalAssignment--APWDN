@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity.Infrastructure;
 using finalAssignment__APWDN.Models;
+using System.Data.Entity.Core.Metadata.Edm;
 
 namespace finalAssignment__APWDN.Repositories
 {

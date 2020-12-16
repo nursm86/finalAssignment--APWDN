@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="finalAssiignmentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="finalAssiignmentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comments">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="PostId" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
@@ -24,19 +24,19 @@
         </EntityType>
         <EntityType Name="Posts">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="PostId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="PostDescription" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PostDate" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
@@ -46,7 +46,7 @@
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Posts">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="PostId" />
             </Principal>
             <Dependent Role="Comments">
               <PropertyRef Name="PostId" />
@@ -58,7 +58,7 @@
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Comments">
               <PropertyRef Name="UserId" />
@@ -70,7 +70,7 @@
           <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Posts">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="PostId" />
             </Principal>
             <Dependent Role="Likes">
               <PropertyRef Name="postId" />
@@ -82,7 +82,7 @@
           <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Likes">
               <PropertyRef Name="userId" />
@@ -94,7 +94,7 @@
           <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Posts">
               <PropertyRef Name="UserId" />
@@ -127,16 +127,15 @@
             <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="finalAssiignmentDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Comment">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="PostId" Type="Int32" Nullable="false" />
           <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -155,22 +154,22 @@
         </EntityType>
         <EntityType Name="Post">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="PostId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="PostDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PostDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Posts" FromRole="Posts" ToRole="Comments" />
           <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Posts" FromRole="Posts" ToRole="Likes" />
           <NavigationProperty Name="User" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -183,7 +182,7 @@
           <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Posts">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="PostId" />
             </Principal>
             <Dependent Role="Comments">
               <PropertyRef Name="PostId" />
@@ -195,7 +194,7 @@
           <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Comments">
               <PropertyRef Name="UserId" />
@@ -207,7 +206,7 @@
           <End Role="Likes" Type="Self.Like" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Posts">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="PostId" />
             </Principal>
             <Dependent Role="Likes">
               <PropertyRef Name="postId" />
@@ -219,7 +218,7 @@
           <End Role="Likes" Type="Self.Like" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Likes">
               <PropertyRef Name="userId" />
@@ -231,7 +230,7 @@
           <End Role="Posts" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Posts">
               <PropertyRef Name="UserId" />
@@ -273,7 +272,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="finalAssiignmentDBModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
                 <ScalarProperty Name="Comment1" ColumnName="Comment" />
@@ -292,7 +291,7 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="finalAssiignmentDBModel.Post">
               <MappingFragment StoreEntitySet="Posts">
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PostDescription" ColumnName="PostDescription" />
                 <ScalarProperty Name="PostDate" ColumnName="PostDate" />
@@ -303,7 +302,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="finalAssiignmentDBModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

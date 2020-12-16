@@ -16,7 +16,7 @@ namespace finalAssignment__APWDN.Models
 
     public partial class Comment
     {
-        public int Id { get; set; }
+        public int CommentId { get; set; }
         public int UserId { get; set; }
         public int PostId { get; set; }
         public string Comment1 { get; set; }

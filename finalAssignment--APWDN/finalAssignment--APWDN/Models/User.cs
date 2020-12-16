@@ -24,9 +24,8 @@ namespace finalAssignment__APWDN.Models
             this.Posts = new HashSet<Post>();
         }
     
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string userName { get; set; }
-        [JsonIgnore, XmlIgnore]
         public string password { get; set; }
         public string Name { get; set; }
     
@@ -34,10 +33,10 @@ namespace finalAssignment__APWDN.Models
         [JsonIgnore,XmlIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore,XmlIgnore]
+        [JsonIgnore, XmlIgnore]
         public virtual ICollection<Like> Likes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore,XmlIgnore]
+        [JsonIgnore, XmlIgnore]
         public virtual ICollection<Post> Posts { get; set; }
     }
 }

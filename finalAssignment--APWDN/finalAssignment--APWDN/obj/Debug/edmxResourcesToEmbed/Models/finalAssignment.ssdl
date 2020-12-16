@@ -2,9 +2,9 @@
 <Schema Namespace="finalAssiignmentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Comments">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="CommentId" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="PostId" Type="int" Nullable="false" />
     <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
@@ -19,19 +19,19 @@
   </EntityType>
   <EntityType Name="Posts">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="PostId" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="PostDescription" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PostDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
@@ -41,7 +41,7 @@
     <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Posts">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="PostId" />
       </Principal>
       <Dependent Role="Comments">
         <PropertyRef Name="PostId" />
@@ -53,7 +53,7 @@
     <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="Comments">
         <PropertyRef Name="UserId" />
@@ -65,7 +65,7 @@
     <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Posts">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="PostId" />
       </Principal>
       <Dependent Role="Likes">
         <PropertyRef Name="postId" />
@@ -77,7 +77,7 @@
     <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="Likes">
         <PropertyRef Name="userId" />
@@ -89,7 +89,7 @@
     <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="Posts">
         <PropertyRef Name="UserId" />
