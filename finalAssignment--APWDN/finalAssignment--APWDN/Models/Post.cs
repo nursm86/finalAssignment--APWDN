@@ -30,9 +30,9 @@ namespace finalAssignment__APWDN.Models
         public string Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<Like> Likes { get; set; }
-        public User User { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
+        public virtual User User { get; set; }
     }
 }

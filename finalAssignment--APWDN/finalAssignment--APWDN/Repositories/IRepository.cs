@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CourierManagementSystem.Repositories
+namespace finalAssignment__APWDN.Repositories
 {
     interface IRepository<T> where T : class
     {

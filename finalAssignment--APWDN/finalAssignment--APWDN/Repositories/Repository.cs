@@ -6,7 +6,7 @@ using System.Web;
 using System.Data.Entity.Infrastructure;
 using finalAssignment__APWDN.Models;
 
-namespace CourierManagementSystem.Repositories
+namespace finalAssignment__APWDN.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
