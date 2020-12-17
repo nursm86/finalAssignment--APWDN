@@ -46,3 +46,6 @@ I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWD
 I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\EntityFramework.SqlServer.dll
 I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\EntityFramework.xml
 I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\EntityFramework.SqlServer.xml
+I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\System.Web.Cors.dll
+I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\System.Web.Http.Cors.dll
+I:\3rd year\9th semester\APDN\final\finalAssignment--APWDN\finalAssignment--APWDN\finalAssignment--APWDN\bin\System.Web.Http.Cors.xml

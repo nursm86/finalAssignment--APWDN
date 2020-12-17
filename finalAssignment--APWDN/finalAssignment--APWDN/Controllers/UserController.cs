@@ -15,10 +15,9 @@ namespace finalAssignment__APWDN.Controllers
     {
         UserRepository userRepo = new UserRepository();
 
-        [Route("login"), BasicAuthentication]
+        [Route("login")]
         public IHttpActionResult PostValidate(User user)
         {
-            
             if (userRepo.Validate(user))
             {
                 return StatusCode(HttpStatusCode.Accepted);
