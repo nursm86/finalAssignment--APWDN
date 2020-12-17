@@ -39,5 +39,18 @@ namespace finalAssignment__APWDN.Repositories
                 return true;
             }
         }
+
+        public bool UpdateUser(User user)
+        {
+            User oldUser = Get(user.UserId);
+            if (oldUser != null)
+            {
+                oldUser.password = user.password;
+                oldUser.Name = user.Name;
+                this.context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }

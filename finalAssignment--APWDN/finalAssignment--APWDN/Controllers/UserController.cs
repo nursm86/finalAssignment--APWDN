@@ -15,6 +15,13 @@ namespace finalAssignment__APWDN.Controllers
     {
         UserRepository userRepo = new UserRepository();
 
+        [Route("")]
+
+        public IHttpActionResult Get()
+        {
+            return Ok(userRepo.GetAll());
+        }
+
         [Route("login")]
         public IHttpActionResult PostValidate(User user)
         {
@@ -36,7 +43,7 @@ namespace finalAssignment__APWDN.Controllers
             return Ok(user);
         }
 
-        [Route(""), BasicAuthentication]
+        [Route("")]
         public IHttpActionResult Post(User user)
         {
             userRepo.Insert(user);
@@ -47,14 +54,15 @@ namespace finalAssignment__APWDN.Controllers
         [Route("{id}"), BasicAuthentication]
         public IHttpActionResult Put([FromUri] int id, [FromBody] User user)
         {
-            User u = userRepo.Get(id);
-            if (u == null)
+            user.UserId = id;
+            if (userRepo.UpdateUser(user))
+            {
+                return Ok(user);
+            }
+            else
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-            user.UserId = id;
-            userRepo.Update(user);
-            return Ok(user);
         }
 
         [Route("{id}"), BasicAuthentication]

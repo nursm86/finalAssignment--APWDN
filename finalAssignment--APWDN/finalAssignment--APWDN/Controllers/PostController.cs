@@ -15,25 +15,26 @@ namespace finalAssignment__APWDN.Controllers
     {
         PostRepository postRepo = new PostRepository();
         CommentRepository comRepo = new CommentRepository();
+        LikeRepository likeRepo = new LikeRepository();
 
-        [Route(""),BasicAuthentication]
+        [Route(""), BasicAuthentication]
         public IHttpActionResult Get()
         {
             return Ok(postRepo.GetAll());
         }
 
-        [Route("{id}",Name ="GetPostById"),BasicAuthentication]
+        [Route("{id}", Name = "GetPostById"), BasicAuthentication]
         public IHttpActionResult Get(int id)
         {
             Post post = postRepo.Get(id);
-            if(post == null)
+            if (post == null)
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
             return Ok(post);
         }
 
-        [Route(""),BasicAuthentication]
+        [Route(""), BasicAuthentication]
         public IHttpActionResult Post(Post post)
         {
             postRepo.Insert(post);
@@ -41,20 +42,22 @@ namespace finalAssignment__APWDN.Controllers
             return Created(uri, post);
         }
 
-        [Route("{id}"),BasicAuthentication]
-        public IHttpActionResult Put([FromUri]int id, [FromBody]Post post)
+        [Route("{id}"), BasicAuthentication]
+        public IHttpActionResult Put([FromUri] int id, [FromBody] Post post)
         {
-            Post p = postRepo.Get(id);
-            if (p == null)
+            post.PostId = id;
+            if (postRepo.UpdatePost(post))
+            {
+                return Ok(post);
+            }
+            else
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-            post.PostId = id;
-            postRepo.Update(post);
-            return Ok(post);
+
         }
 
-        [Route("{id}"),BasicAuthentication]
+        [Route("{id}"), BasicAuthentication]
         public IHttpActionResult Delete(int id)
         {
             if (postRepo.Get(id) == null)
@@ -69,7 +72,7 @@ namespace finalAssignment__APWDN.Controllers
         public IHttpActionResult GetComments(int id)
         {
             List<Comment> comments = comRepo.GetAll().Where<Comment>(x => x.PostId == id).ToList();
-            if(comments.Count<=0)
+            if (comments.Count <= 0)
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
@@ -80,9 +83,9 @@ namespace finalAssignment__APWDN.Controllers
         }
 
         [Route("{id}/comments/{cid}", Name = "GetCommentById"), BasicAuthentication]
-        public IHttpActionResult GetComment(int id,int cid)
+        public IHttpActionResult GetComment(int id, int cid)
         {
-            Comment com = comRepo.GetAll().Where<Comment>(x=>x.CommentId == cid && x.PostId == id).FirstOrDefault();
+            Comment com = comRepo.GetAll().Where<Comment>(x => x.CommentId == cid && x.PostId == id).FirstOrDefault();
             if (com == null)
             {
                 return StatusCode(HttpStatusCode.NoContent);
@@ -94,30 +97,31 @@ namespace finalAssignment__APWDN.Controllers
         }
 
         [Route("{id}/comments"), BasicAuthentication]
-        public IHttpActionResult PostComment(int id,Comment com)
+        public IHttpActionResult PostComment(int id, Comment com)
         {
             com.PostId = id;
             comRepo.Insert(com);
-            string uri = Url.Link("GetCommentById", new { id = com.PostId ,cid = com.CommentId});
+            string uri = Url.Link("GetCommentById", new { id = com.PostId, cid = com.CommentId });
             return Created(uri, com);
         }
 
         [Route("{id}/comments/{cid}"), BasicAuthentication]
-        public IHttpActionResult Put([FromUri] int id,[FromUri] int cid, [FromBody] Comment com)
+        public IHttpActionResult Put([FromUri] int id, [FromUri] int cid, [FromBody] Comment com)
         {
-            Comment comment = comRepo.GetAll().Where<Comment>(x => x.CommentId == cid && x.PostId == id).FirstOrDefault();
-            if (comment == null)
+            com.CommentId = cid;
+            com.PostId = id;
+            if (comRepo.UpdateComment(com))
+            {
+                return Ok(com);
+            }
+            else
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-            com.PostId = id;
-            com.CommentId = cid;
-            comRepo.Update(com);
-            return Ok(comRepo.Get(com.CommentId));
         }
 
         [Route("{id}/comments/{cid}"), BasicAuthentication]
-        public IHttpActionResult DeleteComment(int id,int cid)
+        public IHttpActionResult DeleteComment(int id, int cid)
         {
             Comment comment = comRepo.GetAll().Where<Comment>(x => x.CommentId == cid && x.PostId == id).FirstOrDefault();
             if (comment == null)
@@ -125,6 +129,32 @@ namespace finalAssignment__APWDN.Controllers
                 return StatusCode(HttpStatusCode.NoContent);
             }
             comRepo.Delete(cid);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [Route("{id}/like"), BasicAuthentication]
+        public IHttpActionResult GetLike(int id)
+        {
+            return Ok(likeRepo.GetAll().Where<Like>(x => x.postId == id).ToList().Count);
+        }
+
+        [Route("{id}/like"), BasicAuthentication]
+        public IHttpActionResult PostLike(int id,Like like)
+        {
+            like.postId = id;
+            likeRepo.Insert(like);
+            return Ok(like);
+        }
+
+        [Route("{id}/like/{lid}"), BasicAuthentication]
+        public IHttpActionResult DeleteLike(int id,int lid)
+        {
+            Like like = likeRepo.GetAll().Where<Like>(x => x.postId == id && x.likeId == lid).FirstOrDefault();
+            if (like == null)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            likeRepo.Delete(lid);
             return StatusCode(HttpStatusCode.NoContent);
         }
     }

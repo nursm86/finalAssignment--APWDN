@@ -9,6 +9,17 @@ namespace finalAssignment__APWDN.Repositories
 {
     public class PostRepository : Repository<Post>
     {
-
+        public bool UpdatePost(Post post)
+        {
+            Post oldPost = Get(post.PostId);
+            if(oldPost != null)
+            {
+                oldPost.PostDescription = post.PostDescription;
+                oldPost.Image = post.Image;
+                this.context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }
