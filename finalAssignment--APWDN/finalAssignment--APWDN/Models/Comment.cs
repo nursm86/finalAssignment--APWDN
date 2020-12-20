@@ -23,7 +23,6 @@ namespace finalAssignment__APWDN.Models
         [JsonIgnore, XmlIgnore]
 
         public virtual Post Post { get; set; }
-        [JsonIgnore, XmlIgnore]
         public virtual User User { get; set; }
     }
 }

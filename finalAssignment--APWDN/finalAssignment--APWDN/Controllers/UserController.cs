@@ -27,7 +27,7 @@ namespace finalAssignment__APWDN.Controllers
         {
             if (userRepo.Validate(user))
             {
-                return StatusCode(HttpStatusCode.Accepted);
+                return Ok(userRepo.getIdbyUserName(user));
             }
             return StatusCode(HttpStatusCode.Unauthorized);
         }

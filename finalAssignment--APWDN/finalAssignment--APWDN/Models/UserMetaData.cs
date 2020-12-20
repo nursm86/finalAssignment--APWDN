@@ -11,6 +11,7 @@ namespace finalAssignment__APWDN.Models
     {
         public int UserId { get; set; }
         public string userName { get; set; }
+        [JsonIgnore, XmlIgnore]
         public string password { get; set; }
         public string Name { get; set; }
 

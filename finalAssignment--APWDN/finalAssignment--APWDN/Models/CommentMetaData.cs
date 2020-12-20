@@ -15,7 +15,6 @@ namespace finalAssignment__APWDN.Models
         public string Comment1 { get; set; }
         [JsonIgnore, XmlIgnore]
         public virtual Post Post { get; set; }
-        [JsonIgnore, XmlIgnore]
         public virtual User User { get; set; }
     }
 }

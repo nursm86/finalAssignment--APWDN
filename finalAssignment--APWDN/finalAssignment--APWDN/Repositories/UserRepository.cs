@@ -40,6 +40,12 @@ namespace finalAssignment__APWDN.Repositories
             }
         }
 
+        public int getIdbyUserName(User u)
+        {
+            User user = this.GetAll().Where<User>(x => x.userName == u.userName).FirstOrDefault();
+            return user.UserId;
+        }
+
         public bool UpdateUser(User user)
         {
             User oldUser = Get(user.UserId);
