@@ -142,15 +142,15 @@ namespace finalAssignment__APWDN.Controllers
             return Ok(like);
         }
 
-        [Route("{id}/like/{lid}"), BasicAuthentication]
-        public IHttpActionResult DeleteLike(int id,int lid)
+        [Route("{id}/like/{uid}"), BasicAuthentication]
+        public IHttpActionResult DeleteLike(int id,int uid)
         {
-            Like like = likeRepo.GetAll().Where<Like>(x => x.postId == id && x.likeId == lid).FirstOrDefault();
+            Like like = likeRepo.GetAll().Where<Like>(x => x.postId == id && x.userId == uid).FirstOrDefault();
             if (like == null)
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-            likeRepo.Delete(lid);
+            likeRepo.Delete(like.likeId);
             return StatusCode(HttpStatusCode.NoContent);
         }
     }
