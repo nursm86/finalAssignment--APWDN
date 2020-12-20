@@ -9,6 +9,8 @@ namespace finalAssignment__APWDN.Repositories
 {
     public class PostRepository : Repository<Post>
     {
+        LikeRepository likeRepo = new LikeRepository();
+        CommentRepository comRepo = new CommentRepository();
         public bool UpdatePost(Post post)
         {
             Post oldPost = Get(post.PostId);
@@ -20,6 +22,24 @@ namespace finalAssignment__APWDN.Repositories
                 return true;
             }
             return false;
+        }
+
+        public void DeletePost(int id)
+        {
+            List<Like> likes = likeRepo.GetAll().Where<Like>(x => x.postId == id).ToList();
+            List<Comment> comments = comRepo.GetAll().Where<Comment>(x => x.PostId == id).ToList();
+
+            foreach(var item in comments)
+            {
+                comRepo.Delete(item.CommentId);
+            }
+
+            foreach (var item in likes)
+            {
+                likeRepo.Delete(item.likeId);
+            }
+
+            this.Delete(id);
         }
     }
 }

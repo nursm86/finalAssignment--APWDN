@@ -60,11 +60,7 @@ namespace finalAssignment__APWDN.Controllers
         [Route("{id}"), BasicAuthentication]
         public IHttpActionResult Delete(int id)
         {
-            if (postRepo.Get(id) == null)
-            {
-                return StatusCode(HttpStatusCode.NoContent);
-            }
-            postRepo.Delete(id);
+            postRepo.DeletePost(id);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
