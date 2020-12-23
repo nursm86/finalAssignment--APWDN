@@ -37,9 +37,16 @@ namespace finalAssignment__APWDN.Controllers
         [Route(""), BasicAuthentication]
         public IHttpActionResult Post(Post post)
         {
-            postRepo.Insert(post);
-            string uri = Url.Link("GetPostById", new { id = post.PostId });
-            return Created(uri, post);
+            if (ModelState.IsValid)
+            {
+                postRepo.Insert(post);
+                string uri = Url.Link("GetPostById", new { id = post.PostId });
+                return Created(uri, post);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
         }
 
         [Route("{id}"), BasicAuthentication]

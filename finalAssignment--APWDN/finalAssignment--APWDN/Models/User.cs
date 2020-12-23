@@ -12,6 +12,7 @@ namespace finalAssignment__APWDN.Models
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Xml.Serialization;
 
     public partial class User
@@ -25,8 +26,12 @@ namespace finalAssignment__APWDN.Models
         }
     
         public int UserId { get; set; }
+        [Required,MinLength(3)]
         public string userName { get; set; }
+        [JsonIgnore,XmlIgnore]
+        [Required, MinLength(3)]
         public string password { get; set; }
+        [Required, MinLength(3)]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

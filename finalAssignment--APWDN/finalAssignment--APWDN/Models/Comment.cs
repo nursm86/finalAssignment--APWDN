@@ -12,6 +12,7 @@ namespace finalAssignment__APWDN.Models
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Xml.Serialization;
 
     public partial class Comment
@@ -19,9 +20,9 @@ namespace finalAssignment__APWDN.Models
         public int CommentId { get; set; }
         public int UserId { get; set; }
         public int PostId { get; set; }
+        [Required]
         public string Comment1 { get; set; }
         [JsonIgnore, XmlIgnore]
-
         public virtual Post Post { get; set; }
         public virtual User User { get; set; }
     }

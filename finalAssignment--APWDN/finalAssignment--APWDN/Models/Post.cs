@@ -11,7 +11,8 @@ namespace finalAssignment__APWDN.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,7 @@ namespace finalAssignment__APWDN.Models
     
         public int PostId { get; set; }
         public int UserId { get; set; }
+        [Required]
         public string PostDescription { get; set; }
         public string PostDate { get; set; }
         public string Image { get; set; }

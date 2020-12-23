@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +10,7 @@ namespace finalAssignment__APWDN.Models
     {
         public int PostId { get; set; }
         public int UserId { get; set; }
+        [Required]
         public string PostDescription { get; set; }
         public string PostDate { get; set; }
         public string Image { get; set; }
